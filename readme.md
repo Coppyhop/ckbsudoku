@@ -1,6 +1,6 @@
 # CKBSudoku
 
-> In progress
+> A simple, elegant Sudoku app created with the intention of providing a clean, ad-free experience. No fancy graphics or over the top animations, just Sudoku. This was designed with my mom in mind to fit her needs, but I thought everyone else could use it too, after all, who doesn't want a clean version of a classic time waster?
 
 
 ## Install
@@ -22,24 +22,20 @@
 [**Download**](https://github.com/coppyhop/ckbsudoku/releases/latest) the `.exe` file.
 
 
----
+## Building
 
-
-## Dev
-
-Built with [Electron](https://electronjs.org).
+This app i built with [Electron](https://electronjs.org), this means you require a working [NodeJS](https://nodejs.org/en/) install on the machine you wish to build it on. NodeJS is available from your distros package manager, macports or homebrew, or just downloaded on the site.
+To build this, clone the repositors and go into the directory you cloned to. Then do
+```
+$ npm install
+$ npm run dist
+```
+Inside the "dist" directory you should be able to find a binary built for your specific OS.
 
 ### Run
 
+If you would like to run this as an npm app instead of as a indenpendent binary, simply clone the repository, go into the directory and run
 ```
 $ npm install
 $ npm start
 ```
-
-### Publish
-
-```
-$ npm run release
-```
-
-After Travis finishes building your app, open the release draft it created and click "Publish".
