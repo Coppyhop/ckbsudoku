@@ -41,6 +41,7 @@ header h1 {
 	margin: 0;
 	padding: 0;
 	opacity: 0.7;
+	user-select: none;
 }
 
 footer {
@@ -51,6 +52,7 @@ footer {
 	bottom:0px;
 	height: 14px;
 	width:100%;
+	user-select: none;
 }
 
 button {
@@ -73,23 +75,60 @@ button:hover {
 }
 
 table {
-	width: 80%;
 	margin: auto;
 	margin-top: 3%;
   }
+  tr {
+	  height:48px;
+  }
   td {
-	width: 9.11%;
-	height:8vh;
-	position: relative;
+	width: 48px;
+	height: 48px;
+	padding: 2px;
   }
   td input {
-	position: absolute;
 	text-align: center;
-	border-radius: 15%;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	width:100%;
-	font-size: 9.5vw;
+	font-size: 36px;
+	width:48px;
+	height:48px;
+	border-radius: 12px;
+	border: 1px solid #d0d0d0;
+	background-color: #e7e7e7;
+	transition-duration: 0.3s;
+	outline:none;
   }
+  button {
+	  outline:none;
+	  border:none;
+  }
+
+  button:focus{
+	border: 2px solid #bdbdbd;
+  }
+  td input:hover{
+	background-color: #bdbdbd;
+  }
+
+  td input:focus{
+	background-color: #bdbdbd;
+  }
+
+  input::-webkit-inner-spin-button, 
+input::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+.centerButt{
+	position: absolute;
+	margin-top:2%;
+	left:50%; 
+	width: 250px;
+	margin-left:-125px;
+	text-align:center;
+}
+
+p {
+	user-select: none;
+}

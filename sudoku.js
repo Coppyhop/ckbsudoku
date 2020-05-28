@@ -1,5 +1,6 @@
 var mainDiv;
 var gameBoard;
+var gamePieces;
 
 window.onload = function() {
     console.log("Ready!");
@@ -51,5 +52,21 @@ function navigateGame(){
   xhttp.open("GET", "states/game.html", false);
   xhttp.send();
   gameBoard = document.getElementById("gameBoard");
-  gameBoard.innerHTML="piss";
+  generate();
+}
+
+function generate(){
+  gamePieces = new Array();
+  for(var i=0;i<9;i++){
+    var row = new Array();
+    var tr = document.createElement("tr");
+    for(var j=0;j<9;j++){
+      var item=document.createElement("td");
+      item.innerHTML = "<input type=\"number\" id=\""+i+""+j+"\" min=\"1\" max=\"9\">";
+      tr.appendChild(item);
+      row.push(item);
+    }
+    gamePieces.push(row);
+    gameBoard.appendChild(tr);
+  }
 }
