@@ -24,7 +24,7 @@
 
 ## Building
 
-This app i built with [Electron](https://electronjs.org), this means you require a working [NodeJS](https://nodejs.org/en/) install on the machine you wish to build it on. NodeJS is available from your distros package manager, macports or homebrew, or just downloaded on the site.
+This is an app I built with [Electron](https://electronjs.org), this means you require a working [NodeJS](https://nodejs.org/en/) install on the machine you wish to build it on. NodeJS is available from your distros package manager, macports, homebrew, or just downloaded on the site.
 To build this, clone the repositors and go into the directory you cloned to. Then do
 ```
 $ npm install
