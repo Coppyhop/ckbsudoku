@@ -127,7 +127,7 @@ function generate(){
 
 
 function newGame(){
-  var board = sudoku.generate(80);
+  var board = sudoku.generate("very-hard");
   answer = sudoku.solve(board);
   internalBoard = sudoku.board_string_to_grid(board);
   console.log(board);
