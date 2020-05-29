@@ -21,6 +21,23 @@
     }
 }
 
+@keyframes wrongAnswer {
+    0% {
+        transform: none;
+    }
+    25% {
+        transform: translate3d(-5%,0,0);
+    }
+    50% {
+        transform: none;
+    }
+    75% {
+        transform:translate3d(5%,0,0);
+    }
+    100% {
+        transform: none;
+    }
+}
 
     
     .m-scene .scene_element {
@@ -36,6 +53,7 @@
     .m-scene .scene_element--fadeinleft {
         animation-name: fadeInLeft;
     }
+
 
     .m-scene.is-exiting .scene_element {
         animation-direction: alternate-reverse; }
