@@ -6,8 +6,8 @@ const {is} = require('electron-util');
 const unhandled = require('electron-unhandled');
 const debug = require('electron-debug');
 const contextMenu = require('electron-context-menu');
-const config = require('./config');
 const menu = require('./menu');
+const Store = require('electron-store');
 const packageJson = require('./package.json');
 
 unhandled();
@@ -34,7 +34,10 @@ const createMainWindow = async () => {
 		title: app.name,
 		show: false,
 		width: 1024,
-		height: 768
+		height: 768,
+		webPreferences: {
+			nodeIntegration: true
+		}
 	});
 
 	win.on('ready-to-show', () => {

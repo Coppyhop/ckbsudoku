@@ -28,7 +28,7 @@ header {
 	position: absolute;
 	width: 500px;
 	height: 250px;
-	top: 50%;
+	top: 30%;
 	left: 50%;
 	margin-top: -125px;
 	margin-left: -250px;
@@ -164,6 +164,14 @@ p {
 	  width:100%;
 	  height:100%;
   }
+
+  .sudoku-cell input[type=number]:disabled {
+		color: #999999
+  }
+
+  button:disabled {
+	color: #999999
+	}
 
   /* The Modal (background) */
 .modal {

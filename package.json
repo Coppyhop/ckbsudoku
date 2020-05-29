@@ -1,7 +1,7 @@
 {
 	"name": "ckbsudoku",
 	"productName": "CKBSudoku",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "Sudoku",
 	"license": "MIT",
 	"repository": "coppyhop/ckbsudoku",
@@ -23,7 +23,7 @@
 		"bootstrap": "^4.5.0",
 		"electron-context-menu": "^0.15.0",
 		"electron-debug": "^3.0.0",
-		"electron-store": "^5.1.0",
+		"electron-store": "^5.1.1",
 		"electron-unhandled": "^3.0.0",
 		"electron-updater": "^4.0.6",
 		"electron-util": "^0.13.0",

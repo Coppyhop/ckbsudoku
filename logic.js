@@ -1,12 +1,56 @@
+'use strict';
+const remote= require('electron').remote;
+const Store = require('electron-store');
+const schema = {
+  difficulty: {
+    type: 'number',
+    maximum: 5,
+    minimum: 0,
+    default: 2
+  },
+  scale: {
+    type: 'number',
+    maximum: 4,
+    minimum: 1,
+    default: 1
+  },
+  save: {
+    type: 'number',
+    maximum: 1,
+    minimum: 0,
+    default: 0
+  },
+  savedata: {
+    type: 'string',
+    default: ""
+  },
+  saveboard: {
+    type: 'string',
+    default: ""
+  }
+
+}
+const store = new Store({schema});
 var mainDiv;
 var gameBoard;
 var gamePieces;
 var internalBoard;
 var answer;
+var difficulties = ["Easy", "Medium", "Hard", "Very-Hard", "Insane", "Inhuman"];
+var difficulty;
+var auto;
+var scale;
+var save;
+var origboard;
 
 window.onload = function() {
     console.log("Ready!");
     mainDiv = document.getElementById("main");
+    difficulty = store.get('difficulty');
+    auto=store.get('save');
+    scale=store.get('scale');
+    save=store.get('savedata');
+    origboard=store.get('saveboard');
     this.navigateMenu();
 }
 
@@ -26,7 +70,66 @@ function navigateMenu(){
   document.getElementById("optionsButton").addEventListener("click", function() {
     navigateOptions();
   });
+  document.getElementById("quitButton").addEventListener("click", function() {
+    remote.app.quit();
+  });
 
+  if(save.length == 81 && auto==1){ 
+    document.getElementById("loadButton").disabled = false;
+  }
+
+  document.getElementById("loadButton").addEventListener("click", function(){
+    loadGame();
+  });
+
+}
+
+function loadGame(){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      mainDiv.innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "states/game.html", false);
+  xhttp.send();
+  gameBoard = document.getElementById("gameBoard");
+  document.getElementById("checkButton").addEventListener("click", function(){
+    checkAnswer();
+  });
+  document.getElementById("newGameButton").addEventListener("click", function(){
+    document.getElementById("wonModal").style.display ="none";
+    newGame();
+  })
+  document.getElementById("menuButton").addEventListener("click", function(){
+    navigateMenu();
+  });
+  generate();
+
+  answer = sudoku.solve(origboard);
+  internalBoard = sudoku.board_string_to_grid(save);
+  var dboard = sudoku.board_string_to_grid(origboard);
+  console.log(origboard);
+  for(var i=0;i<9;i++){
+    for(var j=0;j<9;j++){
+      gamePieces[i][j].addEventListener("focusout", function(){
+        if(auto==1){
+        saveGame();
+        }
+      });
+      if(dboard[i][j] != "."){
+      gamePieces[i][j].value=internalBoard[i][j];
+      gamePieces[i][j].disabled = true;
+      } else {
+        if(internalBoard[i][j] != "."){
+        gamePieces[i][j].value=internalBoard[i][j];
+        } else {
+          gamePieces[i][j].value="";
+        }
+        gamePieces[i][j].disabled = false;
+      }
+    }
+  }
 }
 
 function navigateOptions(){
@@ -42,6 +145,45 @@ function navigateOptions(){
   document.getElementById("backButton").addEventListener("click", function() {
     navigateMenu();
   });
+  document.getElementById("diffButton").textContent = "Difficulty: " + difficulties[difficulty];
+  document.getElementById("diffButton").addEventListener("click", function(){
+    if(difficulty==5){
+      difficulty = 0;
+    } else {
+      difficulty++;
+    }
+    store.set('difficulty', difficulty);
+    document.getElementById("diffButton").textContent = "Difficulty: " + difficulties[difficulty];
+  });
+
+  document.getElementById("uiButton").textContent = "UI Scale: " + scale+"x";
+  document.getElementById("uiButton").addEventListener("click", function(){
+    if(scale==4){
+      scale = 1;
+    } else {
+      scale++;
+    }
+    store.set('scale', scale);
+    document.getElementById("uiButton").textContent = "UI Scale: " + scale+"x";
+  });
+
+  if(auto==1){
+    document.getElementById("auto").textContent = "Saving: Enabled";
+  } else {
+    document.getElementById("auto").textContent = "Saving: Disabled";
+  }
+
+  document.getElementById("auto").addEventListener("click", function(){
+    if(auto==0){
+      document.getElementById("auto").textContent = "Saving: Enabled";
+      auto=1;
+    } else {
+      document.getElementById("auto").textContent = "Saving: Disabled";
+      auto=0;
+    }
+    store.set('save', auto);
+  });
+
 }
 
 function navigateGame(){
@@ -66,6 +208,7 @@ function navigateGame(){
     navigateMenu();
   });
   generate();
+  newGame();
 }
 
 function generate(){
@@ -122,17 +265,39 @@ function generate(){
     }
   }
 
-  newGame();
+  
 }
 
+function saveGame(){
+  var myAnswer="";
+  for(var i=0;i<9;i++){
+    for(var j=0;j<9;j++){
+      if(gamePieces[i][j].value != ""){
+      myAnswer=myAnswer + gamePieces[i][j].value;
+      } else {
+        myAnswer=myAnswer + ".";
+      }
+    }
+  }
+  store.set('savedata', myAnswer);
+  store.set('saveboard', origboard);
+}
 
 function newGame(){
-  var board = sudoku.generate("very-hard");
+  var board = sudoku.generate(difficulties[difficulty].toLowerCase());
   answer = sudoku.solve(board);
   internalBoard = sudoku.board_string_to_grid(board);
   console.log(board);
+  origboard = board;
+  store.set("saveboard", origboard);
+  store.set('savedata', "");
   for(var i=0;i<9;i++){
     for(var j=0;j<9;j++){
+      gamePieces[i][j].addEventListener("focusout", function(){
+        if(auto==1){
+        saveGame();
+        }
+      });
       if(internalBoard[i][j] != "."){
       gamePieces[i][j].value=internalBoard[i][j];
       gamePieces[i][j].disabled = true;
