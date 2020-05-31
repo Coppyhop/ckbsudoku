@@ -17,11 +17,11 @@ const showPreferences = () => {
 const helpSubmenu = [
 	openUrlMenuItem({
 		label: 'Website',
-		url: 'https://github.com/coppyhop/undefined'
+		url: 'https://github.com/coppyhop/ckbsudoku'
 	}),
 	openUrlMenuItem({
 		label: 'Source Code',
-		url: 'https://github.com/coppyhop/undefined'
+		url: 'https://github.com/coppyhop/ckbsudoku'
 	}),
 	{
 		label: 'Report an Issue…',
@@ -50,44 +50,10 @@ if (!is.macos) {
 		},
 		aboutMenuItem({
 			icon: path.join(__dirname, 'static', 'icon.png'),
-			text: 'Created by Coppy Bredenkamp'
+			text: 'Created by Coppyhop'
 		})
 	);
 }
-
-const debugSubmenu = [
-	{
-		label: 'Show Settings',
-		click() {
-			config.openInEditor();
-		}
-	},
-	{
-		label: 'Show App Data',
-		click() {
-			shell.openItem(app.getPath('userData'));
-		}
-	},
-	{
-		type: 'separator'
-	},
-	{
-		label: 'Delete Settings',
-		click() {
-			config.clear();
-			app.relaunch();
-			app.quit();
-		}
-	},
-	{
-		label: 'Delete App Data',
-		click() {
-			shell.moveItemToTrash(app.getPath('userData'));
-			app.relaunch();
-			app.quit();
-		}
-	}
-];
 
 const macosTemplate = [
 	appMenu([
@@ -103,24 +69,9 @@ const macosTemplate = [
 		role: 'fileMenu',
 		submenu: [
 			{
-				label: 'Custom'
-			},
-			{
-				type: 'separator'
-			},
-			{
 				role: 'close'
 			}
 		]
-	},
-	{
-		role: 'editMenu'
-	},
-	{
-		role: 'viewMenu'
-	},
-	{
-		role: 'windowMenu'
 	},
 	{
 		role: 'help',
@@ -133,12 +84,6 @@ const otherTemplate = [
 	{
 		role: 'fileMenu',
 		submenu: [
-			{
-				label: 'Custom'
-			},
-			{
-				type: 'separator'
-			},
 			{
 				label: 'Settings',
 				accelerator: 'Control+,',
@@ -155,12 +100,6 @@ const otherTemplate = [
 		]
 	},
 	{
-		role: 'editMenu'
-	},
-	{
-		role: 'viewMenu'
-	},
-	{
 		role: 'help',
 		submenu: helpSubmenu
 	}
@@ -168,11 +107,5 @@ const otherTemplate = [
 
 const template = process.platform === 'darwin' ? macosTemplate : otherTemplate;
 
-if (is.development) {
-	template.push({
-		label: 'Debug',
-		submenu: debugSubmenu
-	});
-}
 
 module.exports = Menu.buildFromTemplate(template);

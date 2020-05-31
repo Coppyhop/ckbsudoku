@@ -316,7 +316,8 @@ function checkAnswer(){
       myAnswer=myAnswer + gamePieces[i][j].value;
     }
   }
-  if(myAnswer==answer){
+  var myAnswerSolve = sudoku.solve(myAnswer);
+  if(myAnswer==answer || myAnswerSolve==myAnswer){
     winGame();
   } else {
     wrongAnswer();
