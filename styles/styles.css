@@ -80,6 +80,10 @@ button:hover {
 	background-color: #bdbdbd;
 }
 
+.sudoku-cell .cell-highlight{
+	background-color: #c6c6c6;
+}
+
 table {
 	margin: auto;
 	margin-top: 3%;
@@ -91,6 +95,9 @@ table {
 	width: 48px;
 	height: 48px;
 	padding: 2px;
+  }
+  .sudoku-cell .hover {
+	  color: #333333;
   }
   .sudoku-cell input {
 	text-align: center;

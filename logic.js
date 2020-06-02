@@ -63,11 +63,10 @@ var origboard;
 var rch;
 var nh;
 var autofill;
+var locked = false;
 
 window.onload = function() {
-    console.log("Checking for newer releases...");
     checkForUpdates();
-    console.log("Ready!");
     mainDiv = document.getElementById("main");
     difficulty = store.get('difficulty');
     auto=store.get('save');
@@ -86,9 +85,11 @@ function checkForUpdates(){
     if (this.readyState == 4 && this.status == 200){
       var versions = JSON.parse(this.responseText);
       var newVersion = versions[0].tag_name;
-      console.log(newVersion);
+      console.log("Latest version: " + newVersion);
       var curVersion = document.getElementById("footer").innerHTML;
-      if(!curVersion.includes(newVersion)){
+      console.log("Current version: " + curVersion);
+      if(curVersion != newVersion){
+        console.log("Version strings different, assuming an update (Possibly a pre-release?)");
         document.getElementById("footer").innerHTML = curVersion + " <a id=\"newver\" href=\"\">(Update available: "+newVersion+")</a>";
         document.getElementById("newver").addEventListener("click", function(){
           shell.openExternal('https://github.com/Coppyhop/ckbsudoku/releases');
@@ -102,8 +103,7 @@ function checkForUpdates(){
 }
 
 function navigateMenu(){
-    console.log("Loading the menu...");
-    var xhttp = new XMLHttpRequest();
+  var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       mainDiv.innerHTML = this.responseText;
@@ -183,8 +183,7 @@ function loadGame(){
 }
 
 function navigateOptions(){
-    console.log("Loading the options menu...");
-    var xhttp = new XMLHttpRequest();
+  var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       mainDiv.innerHTML = this.responseText;
@@ -335,6 +334,41 @@ function generate(){
     }
   }
 
+  for(var y=0;y<9;y++){
+    for(var x=0;x<9;x++){
+      let input = gamePieces[y][x];
+      let r = y;
+      let c = x;
+      input.addEventListener("click", function(){
+        if(rch==1){
+          locked = true;
+          select(r,c);
+        }
+      });
+
+      input.addEventListener("focusout", function(){
+        if(rch==1){
+          locked = false;
+          select(9,9);
+        }
+      });
+
+      input.addEventListener("mouseenter", function(){
+        if(nh==1){
+          hover(this.value);
+        }
+      });
+
+      input.addEventListener("mouseleave", function(){
+        if(nh==1){
+          if(!locked){
+          select(9,9);
+          }
+        }
+      });
+    }
+  }
+
   
 }
 
@@ -374,6 +408,34 @@ function newGame(){
       } else {
         gamePieces[i][j].value="";
         gamePieces[i][j].disabled = false;
+      }
+    }
+  }
+}
+
+function select(row, col){
+    for(var i=0;i<9;i++){
+      for(var j=0;j<9;j++){
+        if(i==row || j == col){
+          gamePieces[i][j].classList.add("cell-highlight");
+        } else {
+          gamePieces[i][j].classList.remove("cell-highlight");
+        }
+      }
+    }
+}
+
+function hover(num){
+  if(!locked){
+    for(var i=0;i<9;i++){
+      for(var j=0;j<9;j++){
+        if(gamePieces[i][j].value==num){
+          if(num > 0){
+          gamePieces[i][j].classList.add("cell-highlight");
+          }
+        } else {
+          gamePieces[i][j].classList.remove("cell-highlight");
+        }
       }
     }
   }

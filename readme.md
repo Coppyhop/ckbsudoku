@@ -6,15 +6,15 @@ A simple, elegant Sudoku app created with the intention of providing a clean, ad
 
 - 7 different difficulty levels ranging from easy to the theoretical minimum required amount of tiles to solve
 - Automatic saving and optional continuing of last played game
-
-**Implementation in progress**
 - Row and Column Highlighting (to better communicate what you're looking for)
 - Highlighting every instance of a number when you hover over it
+
+**Implementation in progress**
 - Autofill if only one number is missing
+- The ability to add "maybes" (Markers that can help keep track of possibilities in a square)
 
 **Planned, not yet implemented**
 
-- The ability to add "maybes" (Markers that can help keep track of possibilities in a square)*
 - Daily Board with leaderboard of fastest times, how am I going to do this securely will pose an issue, don't want to be spammed with 0.00s wins after all
 - Hints 
 - UI Scaling, because people with vision impairment and 4k monitors deserve to play the game too*
