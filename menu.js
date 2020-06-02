@@ -1,6 +1,6 @@
 'use strict';
 const path = require('path');
-const {app, Menu, shell} = require('electron');
+const {app, Menu, shell, webContents} = require('electron');
 const {
 	is,
 	appMenu,
@@ -11,7 +11,7 @@ const {
 } = require('electron-util');
 
 const showPreferences = () => {
-	// Show the app's preferences here
+	webContents.getFocusedWebContents().executeJavaScript('navigateOptions();');
 };
 
 const helpSubmenu = [

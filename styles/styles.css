@@ -35,6 +35,12 @@ header {
 	text-align: center;
 }
 
+.exit {
+	position: absolute;
+	top: 3%;
+	left: 3%;
+}
+
 header h1 {
 	font-size: 60px;
 	font-weight: 200;

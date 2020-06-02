@@ -1,5 +1,5 @@
 'use strict';
-const remote= require('electron').remote;
+const {remote, shell}= require('electron');
 const Store = require('electron-store');
 const schema = {
   difficulty: {
@@ -44,6 +44,8 @@ var save;
 var origboard;
 
 window.onload = function() {
+    console.log("Checking for newer releases...");
+    checkForUpdates();
     console.log("Ready!");
     mainDiv = document.getElementById("main");
     difficulty = store.get('difficulty');
@@ -52,6 +54,27 @@ window.onload = function() {
     save=store.get('savedata');
     origboard=store.get('saveboard');
     this.navigateMenu();
+}
+
+function checkForUpdates(){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200){
+      var versions = JSON.parse(this.responseText);
+      var newVersion = versions[0].tag_name;
+      console.log(newVersion);
+      var curVersion = document.getElementById("footer").innerHTML;
+      if(!curVersion.includes(newVersion)){
+        document.getElementById("footer").innerHTML = curVersion + " <a id=\"newver\" href=\"\">(Update available: "+newVersion+")</a>";
+        document.getElementById("newver").addEventListener("click", function(){
+          shell.openExternal('https://github.com/Coppyhop/ckbsudoku/releases');
+        });
+      }
+    }
+  };
+  xhttp.open("GET", "https://api.github.com/repos/Coppyhop/ckbsudoku/releases");
+  xhttp.setRequestHeader("Accept", "application/vnd.github.v3.raw+json");
+  xhttp.send();
 }
 
 function navigateMenu(){
@@ -102,6 +125,9 @@ function loadGame(){
     newGame();
   })
   document.getElementById("menuButton").addEventListener("click", function(){
+    navigateMenu();
+  });
+  document.getElementById("mainMenuButton").addEventListener("click", function(){
     navigateMenu();
   });
   generate();
@@ -205,6 +231,9 @@ function navigateGame(){
     newGame();
   })
   document.getElementById("menuButton").addEventListener("click", function(){
+    navigateMenu();
+  });
+  document.getElementById("mainMenuButton").addEventListener("click", function(){
     navigateMenu();
   });
   generate();

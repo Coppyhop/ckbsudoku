@@ -9,7 +9,7 @@ A simple, elegant Sudoku app created with the intention of providing a clean, ad
 
 **Planned, not yet implemented**
 
--The ability to add "maybes" (Markers that can help keep track of possibilities in a square)
+- The ability to add "maybes" (Markers that can help keep track of possibilities in a square)
 - Daily Board with leaderboard of fastest times, how am I going to do this securely will pose an issue, don't want to be spammed with 0.00s wins after all
 - Tutorial, for those that wish to learn the game.
 - Row and Column Highlighting (to better communicate what you're looking for)
