@@ -27,6 +27,24 @@ const schema = {
   saveboard: {
     type: 'string',
     default: ""
+  },
+  rch: {
+    type: 'number',
+    maximum: 1,
+    minimum: 0,
+    default: 0
+  },
+  nh: {
+    type: 'number',
+    maximum: 1,
+    minimum: 0,
+    default: 0
+  },
+  autofill: {
+    type: 'number',
+    maximum: 1,
+    minimum: 0,
+    default: 0
   }
 
 }
@@ -42,6 +60,9 @@ var auto;
 var scale;
 var save;
 var origboard;
+var rch;
+var nh;
+var autofill;
 
 window.onload = function() {
     console.log("Checking for newer releases...");
@@ -52,6 +73,9 @@ window.onload = function() {
     auto=store.get('save');
     scale=store.get('scale');
     save=store.get('savedata');
+    rch=store.get('rch');
+    nh = store.get('nh');
+    autofill=store.get('autofill');
     origboard=store.get('saveboard');
     this.navigateMenu();
 }
@@ -193,21 +217,38 @@ function navigateOptions(){
     document.getElementById("uiButton").textContent = "UI Scale: " + scale+"x";
   });
 
-  if(auto==1){
-    document.getElementById("auto").textContent = "Saving: Enabled";
+  if(rch==1){
+    document.getElementById("rchButton").textContent = "Row/Column Highlights: Enabled";
   } else {
-    document.getElementById("auto").textContent = "Saving: Disabled";
+    document.getElementById("rchButton").textContent = "Row/Column Highlights: Disabled";
   }
 
-  document.getElementById("auto").addEventListener("click", function(){
-    if(auto==0){
-      document.getElementById("auto").textContent = "Saving: Enabled";
-      auto=1;
+  document.getElementById("rchButton").addEventListener("click", function(){
+    if(rch==0){
+      document.getElementById("rchButton").textContent = "Row/Column Highlights: Enabled";
+      rch=1;
     } else {
-      document.getElementById("auto").textContent = "Saving: Disabled";
-      auto=0;
+      document.getElementById("rchButton").textContent = "Row/Column Highlights: Disabled";
+      rch=0;
     }
-    store.set('save', auto);
+    store.set('rch', rch);
+  });
+
+  if(nh==1){
+    document.getElementById("nhButton").textContent = "Number Highlights: Enabled";
+  } else {
+    document.getElementById("nhButton").textContent = "Number Highlights: Disabled";
+  }
+
+  document.getElementById("nhButton").addEventListener("click", function(){
+    if(nh==0){
+      document.getElementById("nhButton").textContent = "Number Highlights: Enabled";
+      nh=1;
+    } else {
+      document.getElementById("nhButton").textContent = "Number Highlights: Disabled";
+      nh=0;
+    }
+    store.set('nh', nh);
   });
 
 }
