@@ -90,7 +90,7 @@ function checkForUpdates(){
       console.log("Current version: " + curVersion);
       if(curVersion != newVersion){
         console.log("Version strings different, assuming an update (Possibly a pre-release?)");
-        document.getElementById("footer").innerHTML = curVersion + " <a id=\"newver\" href=\"\">(Update available: "+newVersion+")</a>";
+        document.getElementById("footer").innerHTML = curVersion + " <a id=\"newver\" class=\"update\" href=\"\">Update available</a>";
         document.getElementById("newver").addEventListener("click", function(){
           shell.openExternal('https://github.com/Coppyhop/ckbsudoku/releases');
         });

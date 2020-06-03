@@ -4,7 +4,7 @@ A simple, elegant Sudoku app created with the intention of providing a clean, ad
 
 ## Features
 
-- 7 different difficulty levels ranging from easy to the theoretical minimum required amount of tiles to solve
+- 6 different difficulty levels ranging from easy to the theoretical minimum required amount of tiles to solve
 - Automatic saving and optional continuing of last played game
 - Row and Column Highlighting (to better communicate what you're looking for)
 - Highlighting every instance of a number when you hover over it
