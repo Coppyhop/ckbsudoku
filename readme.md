@@ -1,4 +1,6 @@
-![logo](https://github.com/coppyhop/ckbsudoku/blob/master/build/icon.png?raw=true)
+<p align="center">
+  <img src="build/icon.png" width="128" title="icon">
+</p>
 # CKBSudoku
 
 A simple, elegant Sudoku app created with the intention of providing a clean, ad-free experience. No fancy graphics or over the top animations, just Sudoku. This was designed with my mom in mind to fit her needs, but I thought everyone else could use it too, after all, who doesn't want a clean version of a classic time waster?
@@ -19,7 +21,7 @@ A simple, elegant Sudoku app created with the intention of providing a clean, ad
 - Daily Board with leaderboard of fastest times, how am I going to do this securely will pose an issue, don't want to be spammed with 0.00s wins after all
 - Hints 
 - UI Scaling, because people with vision impairment and 4k monitors deserve to play the game too*
-- Different control options, so that you can play on a touchscreen or without a keyboard*
+- Different control options, so that you can play on a touchscreen or without a keyboard* 
 
 *More Important
 
