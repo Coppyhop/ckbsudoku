@@ -1,7 +1,7 @@
 <p align="center">
   <img src="build/icon.png" width="128" title="icon">
+  <h1>CKBSudoku</h1>
 </p>
-# CKBSudoku
 
 A simple, elegant Sudoku app created with the intention of providing a clean, ad-free experience. No fancy graphics or over the top animations, just Sudoku. This was designed with my mom in mind to fit her needs, but I thought everyone else could use it too, after all, who doesn't want a clean version of a classic time waster?
 
